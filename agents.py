@@ -7,23 +7,23 @@ from tavily import TavilyClient
 # 1. Load Environment Variables
 load_dotenv()
 
-# 2. Initialize the LLM (The Native CrewAI Way)
+# THE MAGIC FIX: Map the Google key to the exact variable CrewAI's engine demands
+os.environ["GEMINI_API_KEY"] = os.getenv("GOOGLE_API_KEY")
+
+# 2. Initialize the LLM (Using the explicit '-latest' tag)
+# We can now drop the api_key parameter because CrewAI will automatically find the environment variable we just set!
 gemini_llm = LLM(
-    model="gemini/gemini-1.5-flash",
-    api_key=os.getenv("GOOGLE_API_KEY"),
+    model="gemini/gemini-2.5-flash",
     temperature=0.2
 )
 
 # 3. Create a Custom Native CrewAI Tool
-# This bypasses LangChain completely and talks directly to Tavily!
 class NativeTavilySearchTool(BaseTool):
     name: str = "Tavily Web Search"
     description: str = "Search the web for current events, news, and factual information. Input should be a search query string."
     
     def _run(self, query: str) -> str:
-        # Initialize the official Tavily client directly
         client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
-        # Perform the search and return the raw string data to the Agent
         results = client.search(query=query, max_results=5)
         return str(results)
 
