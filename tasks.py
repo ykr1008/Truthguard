@@ -51,5 +51,5 @@ edit_task = Task(
         "## Sources Cited\n"
     ),
     agent=executive_editor,
-    output_file="report_{claim}.md" # This will automatically save the output to a file!
+    output_file="report_{safe_name}.md" # This will automatically save the output to a file!
 )

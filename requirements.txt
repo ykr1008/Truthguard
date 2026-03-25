@@ -5,3 +5,4 @@ langchain-community
 langchain-tavily
 tavily-python
 python-dotenv
+litellm

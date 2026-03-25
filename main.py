@@ -1,3 +1,4 @@
+import re
 from crewai import Crew, Process
 
 # Import our configurations from the other files
@@ -21,17 +22,20 @@ if __name__ == "__main__":
     # Capture the claim dynamically from the user
     claim_to_check = input("Enter a news headline or claim to verify: ")
     
+    # 2. SANITIZE THE INPUT: 
+    # This replaces all spaces and special characters with an underscore
+    safe_name = re.sub(r'[^a-zA-Z0-9]', '_', claim_to_check)
+    
     print(f"\n[!] Initiating TruthGuard analysis for: '{claim_to_check}'")
     print("[!] Handing off to the OSINT Researcher...\n")
     
-    # 3. Kick off the process
-    # The 'inputs' dictionary automatically injects the claim into our tasks
-    result = truthguard_crew.kickoff(inputs={'claim': claim_to_check})
+    # 3. Inject BOTH the real claim and the sanitized filename into the tasks
+    result = truthguard_crew.kickoff(inputs={
+        'claim': claim_to_check,
+        'safe_name': safe_name
+    })
     
     print("\n" + "=" * 60)
     print("✅ ANALYSIS COMPLETE ✅")
     print("=" * 60 + "\n")
-    
-    # Print the final result to the terminal 
-    # (Remember, it also automatically saves to truthguard_report.md!)
     print(result)

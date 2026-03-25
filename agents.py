@@ -7,13 +7,9 @@ from tavily import TavilyClient
 # 1. Load Environment Variables
 load_dotenv()
 
-# THE MAGIC FIX: Map the Google key to the exact variable CrewAI's engine demands
-os.environ["GEMINI_API_KEY"] = os.getenv("GOOGLE_API_KEY")
-
-# 2. Initialize the LLM (Using the explicit '-latest' tag)
-# We can now drop the api_key parameter because CrewAI will automatically find the environment variable we just set!
-gemini_llm = LLM(
-    model="gemini/gemini-2.5-flash",
+universal_llm = LLM(
+    model="groq/llama-3.3-70b-versatile", # Simply change this to "gemini/gemini-2.0-flash" when ready
+    api_key=os.getenv("LLM_API_KEY"),
     temperature=0.2
 )
 
@@ -42,7 +38,7 @@ osint_researcher = Agent(
     verbose=True,
     allow_delegation=False, 
     tools=[search_tool], # Now using our custom, crash-proof tool
-    llm=gemini_llm
+    llm=universal_llm
 )
 
 senior_fact_checker = Agent(
@@ -55,7 +51,7 @@ senior_fact_checker = Agent(
     ),
     verbose=True,
     allow_delegation=False,
-    llm=gemini_llm
+    llm=universal_llm
 )
 
 executive_editor = Agent(
@@ -68,5 +64,5 @@ executive_editor = Agent(
     ),
     verbose=True,
     allow_delegation=False,
-    llm=gemini_llm
+    llm=universal_llm
 )
