@@ -1,5 +1,5 @@
 from crewai import Task
-from agents import osint_researcher, senior_fact_checker, executive_editor
+from src.agents import osint_researcher, senior_fact_checker, executive_editor
 
 # Task 1: The Research Assignment
 research_task = Task(
@@ -51,5 +51,5 @@ edit_task = Task(
         "## Sources Cited\n"
     ),
     agent=executive_editor,
-    output_file="report_{safe_name}.md" # This will automatically save the output to a file!
+    output_file="reports/report_{safe_name}.md" # This will automatically save the output to a file!
 )

@@ -2,8 +2,8 @@ import re
 from crewai import Crew, Process
 
 # Import our configurations from the other files
-from agents import osint_researcher, senior_fact_checker, executive_editor
-from tasks import research_task, fact_check_task, edit_task
+from src.agents import osint_researcher, senior_fact_checker, executive_editor
+from src.tasks import research_task, fact_check_task, edit_task
 
 # 1. Assemble the Crew
 # We bundle the agents and tasks into a single Crew object.
