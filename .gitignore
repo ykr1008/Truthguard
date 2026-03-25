@@ -1,0 +1,26 @@
+# ========================
+# TruthGuard .gitignore
+# ========================
+
+# 1. API Keys and Secrets (CRITICAL)
+.env
+
+# 2. Virtual Environments
+venv/
+env/
+.venv/
+
+# 3. Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 4. OS & Editor Settings
+.vscode/
+.DS_Store
+
+# 5. Generated Outputs & Logs
+# We ignore the generated report so it doesn't clutter your commit history
+truthguard_report.md
+*.log

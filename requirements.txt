@@ -1,0 +1,7 @@
+crewai
+crewai[tools]
+langchain-google-genai
+langchain-community
+langchain-tavily
+tavily-python
+python-dotenv
