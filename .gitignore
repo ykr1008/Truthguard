@@ -4,6 +4,7 @@
 
 # 1. API Keys and Secrets (CRITICAL)
 .env
+*.env
 
 # 2. Virtual Environments
 venv/
@@ -21,6 +22,13 @@ __pycache__/
 .DS_Store
 
 # 5. Generated Outputs & Logs
-# We ignore the generated report so it doesn't clutter your commit history
-truthguard_report.md
+# Ignores all generated markdown reports but keeps the folder structure
+backend/reports/*.md
+!backend/reports/.gitkeep
 *.log
+
+# 6. React Frontend (Vite)
+node_modules/
+dist/
+dist-ssr/
+*.local
