@@ -19,13 +19,26 @@ __pycache__/
 
 # 4. OS & Editor Settings
 .vscode/
+!.vscode/extensions.json
+.idea
 .DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # 5. Generated Outputs & Logs
-# Ignores all generated markdown reports but keeps the folder structure
+# Ignores generated markdown reports but keeps the folder structure
 backend/reports/*.md
 !backend/reports/.gitkeep
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # 6. React Frontend (Vite)
 node_modules/
