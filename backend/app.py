@@ -1,19 +1,32 @@
-# app.py
 from fastapi import FastAPI, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import re
 import uuid
+
+# I am assuming this import works perfectly based on your src folder structure!
 from src.crew import truthguard_crew 
 
 app = FastAPI(title="TruthGuard API", description="AI Multi-Agent Fact-Checking Service")
 
+# 🚨 The Bridge: Allows React to talk to FastAPI 🚨
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 class FactCheckRequest(BaseModel):
     claim: str
 
+# In-memory database for local testing
 results_db = {}
 
 def run_crew_logic(job_id: str, claim: str, safe_name: str):
     try:
+        # Kicks off your multi-agent system
         result = truthguard_crew.kickoff(inputs={'claim': claim, 'safe_name': safe_name})
         results_db[job_id] = {"status": "completed", "result": str(result)}
     except Exception as e:
