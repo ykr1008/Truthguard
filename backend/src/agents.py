@@ -1,17 +1,19 @@
+#agents.py
 import os
 from dotenv import load_dotenv
 from crewai import Agent, LLM
 from crewai.tools import BaseTool
 from tavily import TavilyClient
 
-# 1. Load Environment Variables
 load_dotenv()
 
+# NEW: The local Ollama setup!
 universal_llm = LLM(
-    model="groq/llama-3.3-70b-versatile", # Simply change this to "gemini/gemini-2.0-flash" when ready
-    api_key=os.getenv("LLM_API_KEY"),
-    temperature=0.2
+    model="ollama/llama3", # Change this if you pulled a different model like 'mistral'
+    base_url="http://localhost:11434" # Ollama's default local port
 )
+
+# ... (keep all your tools and agents exactly the same below this) ...
 
 # 3. Create a Custom Native CrewAI Tool
 class NativeTavilySearchTool(BaseTool):
